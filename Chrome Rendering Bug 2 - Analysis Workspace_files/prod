@@ -1,0 +1,23 @@
+
+// [BUILD ID]profile201906-31071.Idb5636.M0-35[BUILD ID]
+// [PUBLISH DATE]June 14, 2019, 3:16 PM[PUBLISH DATE]
+(function(){
+const script = document.createElement('script');
+const urlParams = new URLSearchParams(window.location.search);
+const buildId = urlParams.get('build');
+const envId = urlParams.get('env') || localStorage.analyticsuiEnv;
+let cdnBaseUrl = "https://aauicdnva7.azureedge.net/deploy/";
+if(window.location && (window.location.hostname.includes('.chn1') || window.location.hostname.includes('rp2'))) {
+	cdnBaseUrl = 'https://rp-uicdn.chn1.omniture.com/deploy/';
+}
+if (envId && !document.currentScript.src.endsWith('env/' + envId)) {
+	script.src = "https://awaascicdprodva7.blob.core.windows.net/deploy/env/" + envId;
+} else {
+	window.analyticsuiCustomEnvId = envId;
+	window.analyticsuiEnvId = document.currentScript.src.split('env/')[1].split('/')[0].split('?')[0];
+	window.analyticsuiBuildId = buildId || "profile201906-31071.Idb5636.M0-35";
+	window.analyticsuiPublishDate = "June 14, 2019, 3:16 PM";
+	script.src = cdnBaseUrl + "builds/" + window.analyticsuiBuildId + "/js/loader.js";
+}
+document.head.appendChild(script);
+})()
